@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voice Messages</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #333333);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      width: 100vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .background-shape {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff4081;
+      opacity: 0.3;
+      border-radius: 50%;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    .background-shape:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .background-shape:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
+    .background-shape:nth-child(3) { top: 70%; left: 25%; animation-delay: 4s; }
+    .background-shape:nth-child(4) { top: 10%; left: 60%; animation-delay: 6s; }
+    .background-shape:nth-child(5) { top: 85%; left: 50%; animation-delay: 3s; }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 0.4; }
+      50% { transform: translateY(-40px) scale(1.2); opacity: 0.7; }
+      100% { transform: translateY(0) scale(1); opacity: 0.4; }
+    }
+
+    .container {
+      background: #1f1f1f;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      text-align: center;
+      width: 360px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #ff4081;
+    }
+
+    p.subtitle {
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+
+    audio {
+      width: 100%;
+      margin-bottom: 15px;
+      /* Keep default light appearance */
+    }
+  </style>
+</head>
+<body>
+  <!-- floating shapes -->
+  <div class="background-shape"></div>
+  <div class="background-shape"></div>
+  <div class="background-shape"></div>
+  <div class="background-shape"></div>
+  <div class="background-shape"></div>
+
+  <div class="container">
+    <h1>Voice Messages</h1>
+    <p class="subtitle">Click play to listen. You can replace these audio files with your own.</p>
+
+    <audio controls>
+      <source src="voice1.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio controls>
+      <source src="voice2.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio controls>
+      <source src="voice3.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio controls>
+      <source src="voice4.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio controls>
+      <source src="voice5.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</body>
+</html>

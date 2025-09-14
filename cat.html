@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Cat Memes!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8dc;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px #ffa500;
+    }
+
+    .meme-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .meme {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      border: 3px solid #ff69b4;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+      background: #fff;
+      transition: transform 0.3s;
+    }
+
+    .meme:hover {
+      transform: scale(1.05);
+    }
+
+    .meme img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background-color: #eee; /* placeholder background */
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 0;
+      background: rgba(255, 105, 180, 0.8);
+      color: white;
+      width: 100%;
+      font-weight: bold;
+      font-size: 1em;
+      padding: 10px;
+      text-shadow: 1px 1px 2px black;
+    }
+
+    .next-btn {
+      margin-top: 30px;
+      padding: 15px 40px;
+      font-size: 1.2em;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    .next-btn:hover {
+      background-color: #ff1493;
+    }
+
+    /* Responsive for small screens */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .meme-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .meme {
+        max-width: 100%;
+      }
+
+      .caption {
+        font-size: 1em;
+        padding: 8px;
+      }
+
+      .next-btn {
+        width: 90%;
+        font-size: 1em;
+        padding: 12px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Birthday!🐱</h1>
+  <div class="meme-container">
+    <div class="meme">
+      <img src="cat-war.png" alt="Cute Cat 1">
+      <div class="caption">Happy Birthday!</div>
+    </div>
+    <div class="meme">
+      <img src="cat1.jpg" alt="Cat Says Happy Birthday">
+      <div class="caption">Have a Purr-fect Day!</div>
+    </div>
+    <div class="meme">
+      <img src="images.jpeg" alt="Funny Cat">
+      <div class="caption">Birthday Vibes 😺🎂</div>
+    </div>
+    <div class="meme">
+      <img src="cat2.jpg" alt="Party Cat">
+      <div class="caption">Time to Celebrate!</div>
+    </div>
+    <div class="meme">
+      <img src="love.png" alt="Awesome Cat">
+      <div class="caption">You're Pawsome!</div>
+    </div>
+  </div>
+
+  <a href="queen.html" class="next-btn">Next 🎉</a>
+</body>
+</html>

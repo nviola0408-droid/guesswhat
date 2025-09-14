@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Birthday Chess Puzzle</title>
+<style>
+  body {
+    margin: 0;
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffeef8, #fef9f4); /* girly pink gradient */
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  h1 { font-size: 1.4em; margin-bottom: 6px; color: #d63384; }
+  p { margin-top: 0; margin-bottom: 10px; text-align: center; }
+
+  .board-wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr auto;
+    gap: 2px;
+    z-index: 1;
+  }
+
+  #board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    width: 95vw;
+    max-width: 360px;
+    border: 3px solid #222;
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .square {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .light { background: #f0d9b5; }
+  .dark { background: #b58863; }
+
+  img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Pink highlight for selected square */
+  .selected {
+    background: rgba(255, 105, 180, 0.6); /* pink overlay */
+    box-shadow: inset 0 0 10px hotpink;
+  }
+
+  /* Coordinates */
+  .ranks {
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    font-size: 12px;
+    text-align: right;
+    padding-right: 4px;
+    color: #333;
+  }
+  .files {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    font-size: 12px;
+    text-align: center;
+    color: #333;
+    grid-column: 2;
+  }
+
+  #status { margin-top: 12px; font-weight: bold; text-align: center; }
+  #hint { margin-top: 6px; font-size: 14px; color: #555; text-align:center; }
+
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    background: #d63384; /* pink */
+    color: #fff;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #b52d70;
+  }
+
+  /* Floating chess pieces animation */
+  .floating-piece {
+    position: fixed;
+    bottom: -50px;
+    width: 40px;
+    opacity: 0.9;
+    animation: floatUp 10s linear forwards;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0.9; }
+    100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+  <h1>♟️ One-Move Mate</h1>
+  <p>White to move. Find the mate in one!</p>
+
+  <div class="board-wrapper">
+    <div class="ranks">
+      <div>8</div><div>7</div><div>6</div><div>5</div>
+      <div>4</div><div>3</div><div>2</div><div>1</div>
+    </div>
+    <div id="board"></div>
+    <div class="files">
+      <div>a</div><div>b</div><div>c</div><div>d</div>
+      <div>e</div><div>f</div><div>g</div><div>h</div>
+    </div>
+  </div>
+
+  <div id="status"></div>
+  <div id="hint">💡 Hint: The White Queen can deliver mate in one move.</div>
+  <button onclick="resetBoard()">Reset</button>
+
+<script>
+const boardEl = document.getElementById("board");
+const statusEl = document.getElementById("status");
+
+const PIECES = {
+  'Q': 'https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg',
+  'K': 'https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg',
+  'R': 'https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg',
+  'P': 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg',
+  'k': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg',
+  'p': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg',
+  'b': 'https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg',
+  'n': 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg',
+  'r': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg'
+};
+
+let pieces, selected;
+const files = ['a','b','c','d','e','f','g','h'];
+
+function initPieces() {
+  return {
+    h8:'k', g7:'p',   // black king and pawn
+    g5:'n', a8:'r',   // extra black pieces
+    g1:'K',           // white king 
+    g6:'Q',           // white queen 
+    b7:'R',           // white rook 
+    c4:'P', d2:'P',   // random white pawns
+    f6:'p', h5:'p'    // random black pawns
+  };
+}
+
+function renderBoard() {
+  boardEl.innerHTML = "";
+  for (let rank=8; rank>=1; rank--) {
+    for (let file=0; file<8; file++) {
+      const sq = files[file]+rank;
+      const sqEl = document.createElement("div");
+      sqEl.className = "square " + ((file+rank)%2 ? "dark":"light");
+      sqEl.dataset.square = sq;
+
+      if (pieces[sq]) {
+        const img = document.createElement("img");
+        img.src = PIECES[pieces[sq]];
+        sqEl.appendChild(img);
+      }
+
+      sqEl.onclick = () => handleClick(sq, sqEl);
+      boardEl.appendChild(sqEl);
+    }
+  }
+}
+
+function handleClick(sq, sqEl) {
+  if (!selected) {
+    if (pieces[sq] === 'Q') {
+      selected = sq;
+      sqEl.classList.add("selected");
+      statusEl.textContent = "Queen selected. Find the mate!";
+    }
+    return;
+  }
+  // Correct solution: Qxg7#
+  if (selected === "g6" && sq === "g7") {
+    delete pieces["g6"];
+    pieces["g7"] = "Q";
+    renderBoard();
+    statusEl.textContent = "✅ Checkmate! Redirecting...";
+    setTimeout(()=> window.location.href="cat.html", 1200);
+  } else {
+    statusEl.textContent = "❌ That's wrong bae. Try again!";
+  }
+  selected = null;
+}
+
+function resetBoard() {
+  pieces = initPieces();
+  selected = null;
+  statusEl.textContent = "";
+  renderBoard();
+}
+
+resetBoard();
+
+/* Floating Chess Pieces Effect */
+const floatPieces = [
+  PIECES['Q'], PIECES['K'], PIECES['R'],
+  PIECES['P'], PIECES['n'], PIECES['b']
+];
+
+function spawnPiece() {
+  const img = document.createElement("img");
+  img.src = floatPieces[Math.floor(Math.random()*floatPieces.length)];
+  img.className = "floating-piece";
+  img.style.left = Math.random()*100 + "vw";
+  img.style.width = (30 + Math.random()*40) + "px"; // varied sizes
+  img.style.animationDuration = (6 + Math.random()*5) + "s";
+  document.body.appendChild(img);
+  setTimeout(()=> img.remove(), 11000);
+}
+
+// Spawn multiple pieces instantly on load
+for (let i=0; i<10; i++) {
+  setTimeout(spawnPiece, i*300);
+}
+
+// Keep spawning continuously
+setInterval(spawnPiece, 1500);
+</script>
+</body>
+</html>

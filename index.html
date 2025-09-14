@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Passcode Access</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #fff5f8);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* floating heart/confetti effect */
+    .background-shape {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #d63384;
+      opacity: 0.3;
+      border-radius: 50%;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    .background-shape:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .background-shape:nth-child(2) { top: 40%; left: 80%; animation-delay: 2s; }
+    .background-shape:nth-child(3) { top: 70%; left: 25%; animation-delay: 4s; }
+    .background-shape:nth-child(4) { top: 10%; left: 60%; animation-delay: 6s; }
+    .background-shape:nth-child(5) { top: 85%; left: 50%; animation-delay: 3s; }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 0.4; }
+      50% { transform: translateY(-40px) scale(1.2); opacity: 0.7; }
+      100% { transform: translateY(0) scale(1); opacity: 0.4; }
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 320px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #d63384; /* pink accent */
+    }
+
+    p.subtitle {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input {
+      text-align: center;
+    }
+
+    button {
+      background: #d63384;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #b42a6d;
+    }
+
+    .hint {
+      font-size: 13px;
+      color: #777;
+      margin-top: -5px;
+      margin-bottom: 15px;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <!-- background floating shapes -->
+  <div class="background-shape"></div>
+  <div class="background-shape"></div>
+  <div class="background-shape"></div>
+  <div class="background-shape"></div>
+  <div class="background-shape"></div>
+
+  <div class="container">
+    <h1>INPUT PASSCODE</h1>
+    <p class="subtitle">This page is solely made for maica elisse tuvillara. </p>
+
+    <input type="password" id="passcodeInput" placeholder="Enter Passcode">
+    <div class="hint">Hint: birthday in a numerical form. e.g, (010101)</div>
+    <button onclick="checkPasscode()">Unlock</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    const PASSCODE = "092709"; // 🔐 Change this to your secret code
+
+    function checkPasscode() {
+      const input = document.getElementById("passcodeInput").value;
+      if (input === PASSCODE) {
+        window.location.href = "message.html"; // Redirect to next page
+      } else {
+        document.getElementById("error").innerText = "❌ Incorrect passcode.";
+      }
+    }
+  </script>
+</body>
+</html>

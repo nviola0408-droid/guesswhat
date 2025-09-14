@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reassuring Messages</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      color: #ff6b81;
+      margin-bottom: 20px;
+    }
+    #messageBox {
+      max-width: 500px;
+      padding: 16px;
+      border: 2px solid #ff6b81;
+      border-radius: 12px;
+      background: #222;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #ff6b81;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background: #ff4d68;
+    }
+    #nextPage {
+      display: none;
+      background: #4CAF50;
+    }
+    #nextPage:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Words that are longing for u.</h1>
+  <div id="messageBox">I want u to remember these.</div>
+  <button id="showBtn" onclick="showMessage()">Click me.</button>
+  <button id="nextPage" onclick="goNext()">Next Page</button>
+
+  <script>
+    const messages = [
+      "don't worry bae, u're doing so much better than u think.",
+      "I know it's tough, but u're tougher gorgeous. u'll get through this.",
+      "even if the world feels heavy, know that I'm always here rooting for u.",
+      "u're never a burden. anyone would be very lucky to have you.",
+      "rest, my penguin. u don’t always have to carry the weight of everything.",
+      "I miss u, and I wish I could hug u right now. u'll always be on my mind.",
+      "u're more than enough, don't ever forget that.",
+      "when u feel lost, just remember the stars are watching over us both.",
+      "It's okay to fail, it means that u're trying. that's courage.",
+      "u’re beautiful inside and out, don’t ever forget that.", 
+      "ur presence alone is already enough more than any people could ever ask for.",
+      "u’ve survived all the hard days before, and I know u’ll get through this one too.",
+      "u're gonna be just fine my gogoo bear.",
+      "if the world turns against u, I'd turn against the world.",
+      "how lucky tito and tita is, to have such a very stunning daughter like u.",
+      "a very caring sister deserves a very wonderful day, I hope the world's good to u bae.",
+      "ur smile alone heals tons of things, that's my medication.",
+      "even when u doubt urself, I'll always believe in u elie.",
+      "it's okay to cry, that means ur heart is brave enough to feel.",
+      "crying's good for the soul right?, whenever u feel so down know that it's alright to cry.",
+      "please take care of urself, eat tons of foods, u'll never get fat queen."
+    ];
+
+    let index = 0;
+
+    function showMessage() {
+      const box = document.getElementById("messageBox");
+      const showBtn = document.getElementById("showBtn");
+      const nextBtn = document.getElementById("nextPage");
+
+      if (index < messages.length) {
+        box.textContent = messages[index];
+        index++;
+        if (index === messages.length) {
+          showBtn.style.display = "none";
+          nextBtn.style.display = "inline-block";
+        }
+      }
+    }
+
+    function goNext() {
+      // Redirect to another page
+      window.location.href = "private.html"; // change to your next page file
+    }
+  </script>
+</body>
+</html>

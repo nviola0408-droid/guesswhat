@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #fef9f4, #ffeef8);
+      color: #333;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin: 0 0 15px;
+      color: #d63384;
+    }
+
+    .center-image {
+      margin: 15px 0;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #d63384;
+      box-shadow: 0 0 12px rgba(214, 51, 132, 0.5);
+    }
+
+    .center-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .taylor-text {
+      font-size: 1em;
+      color: #a63d7d;
+      margin: 12px 0;
+      line-height: 1.5;
+      max-width: 300px;
+    }
+
+    .taylor-albums {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .album {
+      width: 70px;
+      height: 70px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .album img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .album:hover {
+      transform: scale(1.05);
+    }
+
+    .next-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 0.95em;
+      background-color: #d63384;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    .next-btn:hover {
+      background-color: #b52d70;
+    }
+
+    /* Make sure everything scales well on tiny phones */
+    @media (max-height: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+      .center-image {
+        width: 150px;
+        height: 150px;
+      }
+      .album {
+        width: 60px;
+        height: 60px;
+      }
+      .taylor-text {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Happy Birthday!!!!</h1>
+
+  <div class="center-image">
+    <img src="maica.jpg" alt="maica">
+  </div>
+
+  <div class="taylor-text">
+    "May all your birthday wishes come true!" 🎶  
+  </div>
+
+  <div class="taylor-albums">
+    <div class="album"><img src="Loverrr.png" alt="maica"></div>
+    <div class="album"><img src="taylor.jpg" alt="Folklore"></div>
+    <div class="album"><img src="taylorr.jpg" alt="Evermore"></div>
+    <div class="album"><img src="taylorrr.jpg" alt="Red"></div>
+  </div>
+
+  <div class="taylor-text">
+    "Shake it off, it’s your day!" ✨🎉
+  </div>
+
+  <a href="ai-companion.html" class="next-btn">Next</a>
+
+</body>
+</html>
